@@ -25,6 +25,8 @@ const App = () => {
   // isClaiming lets us easily keep a loading state while the NFT is minting.
   const [isClaiming, setIsClaiming] = useState(false);
 
+
+
 // Holds the amount of token each member has in state.
 const [memberTokenAmounts, setMemberTokenAmounts] = useState({});
 // The array holding all of our members addresses.
@@ -126,14 +128,37 @@ const memberList = useMemo(() => {
     );
   }
 
-  if (hasClaimedNFT) {
-    return (
-      <div className="member-page">
-        <h1>🍪ArtDAO Member Page</h1>
-        <p>Congratulations on being a member</p>
+if (hasClaimedNFT) {
+  return (
+    <div className="member-page">
+      <h1>🍪DAO Member Page</h1>
+      <p>Congratulations on being a member</p>
+      <div>
+        <div>
+          <h2>Member List</h2>
+          <table className="card">
+            <thead>
+              <tr>
+                <th>Address</th>
+                <th>Token Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              {memberList.map((member) => {
+                return (
+                  <tr key={member.address}>
+                    <td>{shortenAddress(member.address)}</td>
+                    <td>{member.tokenAmount}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
-    );
-  };
+    </div>
+  );
+};
 
   const mintNft = () => {
     setIsClaiming(true);
